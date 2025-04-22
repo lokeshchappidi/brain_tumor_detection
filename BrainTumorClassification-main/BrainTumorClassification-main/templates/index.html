@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block bodyblock %}
+<div class="container">
+    <h3 class="display-6">Welcome to the Brain Tumor Classification Web App</h3>
+    <p>
+        Detect brain tumors using deep learning models. Upload your MRI image and get an accurate prediction instantly.
+    </p>
+    <img src="/static/images/X-Ray.png" class="img-fluid" width="500" alt="MRI X-Ray">
+    <a class="btn btn-outline-primary mt-3" href="/app/braintumor/">Start Classification</a>
+</div>
+{% endblock %}

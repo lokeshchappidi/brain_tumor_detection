@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block bodyblock %}
+<div class="container">
+    <h3 class="display-8">Brain Tumor Classification</h3>
+    <p>Upload an MRI image to classify the tumor type.</p>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- Image Upload Form -->
+    <form action="/app/braintumor/" method="POST" enctype="multipart/form-data">
+        <div class="input-group mb-3" style="width: 500px;">
+            <input type="file" class="form-control" name="image_name" required>
+            <button class="btn btn-outline-primary" type="submit">Upload & Predict</button>
+        </div>
+    </form>
+
+    {% if fileupload %}
+    <h3 class="display-8">Predicted Image</h3>
+    <img src="/static/predict/predicted_image.jpg" width="500" class="img-fluid" alt="Predicted Image">
+    <hr />
+    <h4>Prediction Result:</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tumor Type</th>
+                <th>Confidence</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for element in report %}
+            <tr>
+                <td>{{ element[0] }}</td>
+                <td>{{ element[1] | round(2) }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endblock %}
